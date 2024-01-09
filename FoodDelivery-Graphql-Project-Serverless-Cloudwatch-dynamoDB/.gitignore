@@ -1,0 +1,4 @@
+food-delivery-app/node_modules
+food-delivery-app/.serverless
+food-delivery-layers/dynamo-db-layers/node_modules
+food-delivery-layers/.serverless

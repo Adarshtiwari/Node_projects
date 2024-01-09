@@ -1,0 +1,12 @@
+service: food-delivery-layers
+
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+
+layers:
+  dynamo-db-layers:
+    path: dynamo-db-layers

@@ -1,0 +1,121 @@
+service: aws-node-http-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam: 
+    arn:aws:iam::097121499980:role/lambda_role_s3_Full
+
+plugins:
+  - serverless-aws-static-file-handler
+
+
+functions:
+  Signup_Handler:
+    handler: handlers/signup.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /signup
+          method: post
+  
+  Signin_Handler:
+    handler: handlers/sigin.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /sigin
+          method: post
+
+  GetProfile_Handler:
+    handler: handlers/getProfile.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /getprofile
+          method: post
+
+  UpdatedProfile_Handler:
+    handler: handlers/updateProfile.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /updatedprofile
+          method: Put
+
+  EventRequest_Handler:
+    handler: handlers/eventRequest.handler
+    timeout: 45
+    events:
+      - http:
+          path: /createevent
+          method: any
+          cors: true
+
+  UplpoadEventServices_Handler:
+    handler: handlers/createservice_handler.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /createservice
+          method: any
+          cors: true      
+
+  CreateEvent_Handler:
+    handler: handlers/createEvent.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /creatneweevent
+          method: post
+
+  GetAllEvent_Handler:
+    handler: handlers/getAllEvent.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /getallevent
+          method: get
+          cors: true
+           
+  GetAllUser_Handler:
+    handler: handlers/getAllUser.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /getalluser
+          method: get
+
+  GetAllEventService_Handler:
+    handler: handlers/getallcreateservice_handler.handler
+    timeout: 45
+    events:
+      - httpApi:
+          path: /getallcreateservice
+          method: get
+
+
+
+resources:
+  Resources:
+    MyS3Bucket:
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        BucketName: eventimagesfordemo
+        AccessControl: Private  # Set the desired access control (Private, PublicRead, PublicReadWrite, etc.)
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+              AllowedOrigins:
+                - "*"
+        
+
+          
+  

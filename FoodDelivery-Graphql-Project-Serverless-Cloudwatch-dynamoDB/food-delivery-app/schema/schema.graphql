@@ -1,0 +1,415 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+type Query {
+  getRestaurantDetails(restaurantID: ID!): Restaurant @aws_api_key
+  getMenuItemsByRestaurantId(restaurantId: ID!): [MenuItem] @aws_api_key
+  getUser(userId: ID!): User @aws_api_key
+  getUserList: [User] @aws_api_key
+  getOrderListByRestaurantId(restaurantID: ID!): [OrderListByRestaurantId] @aws_api_key
+  getRestaurantList: [Restaurant] @aws_api_key
+  getRestaurantById(id: ID!): Restaurant @aws_api_key
+  getRestaurantByUserId(userId: ID!): Restaurant @aws_api_key
+  getOrderListUserId(userId: ID!): [Orderlistbyuserid] @aws_api_key
+  getDeliveryDetails(userboyid: ID!): DeliveryReturn @aws_api_key
+  getCartlist(userId: ID!): OutputCartItem @aws_api_key
+  listDeliveryBoy: [User] @aws_api_key
+  listOrderById(orderId: String): Order @aws_api_key
+  getBillingDetailsByUserId(userId: String!): [Billing] @aws_api_key
+  getDeliveryDetailsByDeliveryBoyId(deliveryBoyId: String): [DeliveryReturn]
+    @aws_api_key
+  getBillingDetailsByOrderId(orderId: String!): Billing @aws_api_key
+  getDeliveryDetailsByUserId(userId: ID!): [Delivery] @aws_api_key
+  filterQuerry(input: InputFilterQuerry): [OutPutFilterQuerry] @aws_api_key
+  filterQuerryOnRestaurant(input: InputFilterQuerryOnRestaurant): [Restaurant]
+    @aws_api_key
+  getRestaurantDetailsByIndex(
+    input: InputgetRestaurantDetailsByIndex
+  ): [MenuItem] @aws_api_key
+}
+type Mutation {
+  createRestaurant(input: createRestaurantInput): Restaurant @aws_api_key
+  updateRestaurant(input: updateRestaurantInput): Restaurant @aws_api_key
+  deleteRestaurant(input: deleteRestaurantInput): Restaurant @aws_api_key
+  createMenuItem(input: createMenuItemInput): MenuItem @aws_api_key
+  createCartItem(input: createCartItemInput): Cart @aws_api_key
+  addItemToCart(input: cartItemInput): CartItem @aws_api_key
+  deleteUser(input: deleteUserInput): User @aws_api_key
+  createUser(input: createUserInput): User @aws_api_key
+  updateUser(input: updateUserInput): User @aws_api_key
+  deleteMenuItem(input: menuItemInput): MenuItem @aws_api_key
+  updateMenuItem(input: updateMenuItemInput): MenuItem @aws_api_key
+  userLogin(input: userLoginInput): User @aws_api_key
+  deleteCartItem(input: deleteCartItemInput): CartItem @aws_api_key
+  updateOrder(input: updateOrderInput): Order @aws_api_key
+  updateCartItem(input: updateCartItemInput): CartItem @aws_api_key
+  updateDeliveryDetails(input: updateDeliveryStatusInput): Delivery @aws_api_key
+  createOrder(input: createOrderInput): Order @aws_api_key
+  createMenuItemByExcelFile(input: createMenuItemByExcelFileInput): [MenuItem]
+    @aws_api_key
+
+  updateRestaurantRating(input: InputupdateRestaurantRating): Restaurant
+    @aws_api_key
+
+  updateOrderStatus(input: InputupdateOrderStatus): Order @aws_api_key
+}
+
+type Address {
+  location: String
+  city: String
+  state: String
+  pinCode: String
+  lat: String
+  lng: String
+}
+type Rating {
+  sum: Int
+  currentRating: Float
+  totalNumberOfUser: Int
+}
+
+type Billing {
+  orderId: String!
+  userId: String
+  paymentMode: paymentMode
+  billingDate: String
+}
+type Cart {
+  cartId: String
+  menuItemId: String
+  quantity: String
+  datetime: String
+  total: String
+}
+
+type OutputCartItem {
+  cartId: String!
+  cartItems: [CartItem]
+}
+
+type CartItem {
+  cartId: String!
+  cartItemId: String
+  menuItemId: String
+  menuItem: MenuItem
+  quantity: Int
+  totalPrice: Float
+}
+type MenuItem {
+  menuItemId: String
+  menuItemName: String
+  description: String
+  actualPrice: Float
+  discount: Float
+  price: Float
+  restaurantId: String
+  image: String
+  category: String
+}
+
+type Delivery {
+  orderId: String
+  deliveryBoyId: String
+  deliveryStatus: String
+  pickUpTime: String
+  deliveredTime: String
+  userId: String
+}
+
+type DeliveryReturn {
+  deliveryBoyId: String
+  deliveryStatus: String
+  pickUpTime: String
+  deliveredTime: String
+  user: User
+  order: Order
+  restaurant: Restaurant
+}
+
+input InputupdateOrderStatus {
+  orderId: String
+  deliveryStatus: String
+  orderStatus: String
+}
+
+input InputAddress {
+  location: String
+  city: String
+  state: String
+  pinCode: String
+  lat: String
+  lng: String
+}
+
+type DeliveryOrder {
+  orderId: String!
+  restaurantId: String
+  userId: String
+  orderDate: String
+  totalPrice: Float
+  orderStatus: String
+  paymentMode: String
+  isPaid: Boolean
+}
+
+type Order {
+  orderId: String!
+  restaurantId: String
+  userId: String
+  orderDate: String
+  totalPrice: Float
+  orderStatus: String
+  paymentMode: String
+  isPaid: Boolean
+  orderItem: [orderItem]
+  
+}
+
+
+type OrderListByRestaurantId {
+  orderId: String!
+  restaurantId: String
+  userId: String
+  orderDate: String
+  totalPrice: Float
+  orderStatus: String
+  paymentMode: String
+  isPaid: Boolean
+  orderItem: [orderItem]
+  user: User
+  
+}
+
+
+type Orderlistbyuserid
+ {
+  orderId: String!
+  restaurantId: String
+  userId: String
+  orderDate: String
+  totalPrice: Float
+  orderStatus: String
+  paymentMode: String
+  isPaid: Boolean
+  orderItem: [orderItem]
+  restaurant: Restaurant
+  delivery: Delivery
+}
+
+
+type Restaurant {
+  id: String
+  sortKey: String
+  category: String
+  restaurantName: String
+  address: Address
+  image: String
+  userId: String
+  rating: Rating
+}
+type User {
+  userId: String!
+  firstName: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  password: String
+  userType: String!
+  address: Address
+  jwtToken: String
+}
+
+type OutPutFilterQuerry {
+  id: String
+  sortKey: String
+  menuItemName: String
+  actualPrice: Int
+  price: Float
+  description: String
+  discount: Int
+}
+
+input InputFilterQuerry {
+  id: String
+  menuItemName: String
+  price: Float
+  discount: Int
+  category: String
+}
+
+type OutPutFilterQuerry {
+  id: String
+  sortKey: String
+  menuItemName: String
+  actualPrice: Int
+  price: Float
+  description: String
+  discount: Int
+}
+
+input InputgetRestaurantDetailsByIndex {
+  restaurantId: String!
+  category: String!
+}
+
+input InputFilterQuerryOnRestaurant {
+  category: String
+  restaurantName: String
+}
+
+input InputupdateRestaurantRating {
+  userRating: Int
+  restaurantId: String!
+}
+
+input cartItemInput {
+  cartId: String!
+  menuItemId: String!
+  quantity: Int!
+  restaurantId: String!
+}
+input createCartItemInput {
+  cartId: String!
+  menuItemId: String!
+  restaurantId: String
+  quantity: Int
+}
+input createMenuItemInput {
+  restaurantId: String!
+  menuItemName: String!
+  description: String
+  actualPrice: Float!
+  discount: Float!
+  image: String
+  category: category
+}
+input createOrderInput {
+  userId: String!
+  cartId: String!
+  paymentMode: paymentMode
+}
+input createRestaurantInput {
+  restaurantName: String
+  category: String
+  address: InputAddress
+  image: String
+  userId: String
+}
+input createUserInput {
+  firstName: String
+  lastName: String
+  password: String
+  email: String
+  phoneNumber: String
+  userType: userType
+  address: InputAddress
+}
+input deleteCartItemInput {
+  cartId: String
+  cartItemId: String
+}
+input deleteRestaurantInput {
+  id: String
+}
+input deleteUserInput {
+  userId: String!
+}
+input menuItemInput {
+  id: String!
+  menuItemId: String!
+}
+
+input createMenuItemByExcelFileInput {
+  excelbase64: String!
+  restaurantId: String!
+}
+type orderItem {
+  quantity: Int
+  totalPrice: Float
+  orderId: String
+  orderItemId: String
+  menuItem: MenuItem
+}
+input updateCartItemInput {
+  cartId: String!
+  cartItemId: String!
+  quantity: Int!
+}
+input updateDeliveryStatusInput {
+  orderId: String!
+  deliveryStatus: deliveryStatus
+}
+input updateMenuItemInput {
+  id: String
+  sortKey: String
+  menuItemName: String
+  description: String
+  actualPrice: Float
+  discount: Float
+  image: String
+}
+input updateOrderInput {
+  orderId: String
+  orderStatus: orderStatus
+}
+input updateRestaurantInput {
+  id: String
+  category: String
+  address: InputAddress
+}
+
+input updateUserInput {
+  userId: String!
+  firstName: String
+  lastName: String
+  password: String
+  email: String
+  phoneNumber: String
+  userType: String
+  address: InputAddress
+}
+type userList {
+  id: String
+  orderid: String
+  firstName: String
+  lastName: String
+  email: String
+  Password: String
+  contactNumber: String
+  addrressid: String
+}
+input userLoginInput {
+  email: String
+  password: String
+}
+enum userType {
+  User
+  DeliveryBoy
+  RestaurantOwner
+}
+
+enum paymentMode {
+  COD
+}
+
+enum category {
+  Dessert
+  MainCourse
+  PizzaandSandwich
+  ChineseFood
+  Drinks
+}
+
+enum orderStatus {
+  Accept
+  Reject
+  Preparing
+  OutForDelivery
+  Delivered
+}
+
+enum deliveryStatus {
+  Failed
+  Delivered
+}

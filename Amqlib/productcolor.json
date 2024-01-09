@@ -1,0 +1,42 @@
+[
+  {
+    "productid": 1,
+    "color": "Red"
+  },
+  {
+    "productid": 2,
+    "color": "blue"
+  },
+  {
+    "productid": 3,
+    "color": "yellow"
+  },
+  {
+    "productid": 4,
+    "color": "orange"
+  },
+  {
+    "productid": 5,
+    "color": "Green"
+  },
+  {
+    "productid": 6,
+    "color": "pink"
+  },
+  {
+    "productid": 7,
+    "color": "black"
+  },
+  {
+    "productid": 8,
+    "color": "brown"
+  },
+  {
+    "productid": 9,
+    "color": "gray"
+  },
+  {
+    "productid": 10,
+    "color": "white "
+  }
+]

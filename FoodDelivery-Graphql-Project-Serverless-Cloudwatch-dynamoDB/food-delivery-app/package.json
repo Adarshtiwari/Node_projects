@@ -1,0 +1,28 @@
+{
+  "name": "food-delivery-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1080.0",
+    "serverless-appsync-plugin": "^1.11.3",
+    "serverless-plugin-existing-s3": "^2.4.0",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "winston": "^3.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "serverless-plugin-tracing": "^2.0.0"
+  }
+}
